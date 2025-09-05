@@ -518,11 +518,11 @@ const ConversationUnreadCount = createLiveQueryCollection({
   query: query(({ join, from, select, where }) => {
     const { conversationId, userId } = from(ConversationUsers);
     const message = join(Messages, { conversationId, senderId: not(userId) });
-    const status = join(MessageStatusForUser, {
+    const { status } = join(MessageStatusForUser, {
       messageId: message.id,
       userId,
     });
-    where(not(eq(status.status, "read")));
+    where(not(eq(status, "read")));
     const unreadMessageCount = count(status);
     return select({ conversationId, userId, unreadMessageCount }).groupBy([
       conversationId,
@@ -530,7 +530,6 @@ const ConversationUnreadCount = createLiveQueryCollection({
     ]);
   }),
 });
-
 
 new Query()
   .from({ conversationUser: ConversationUsers })

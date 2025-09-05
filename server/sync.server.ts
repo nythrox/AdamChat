@@ -9,6 +9,9 @@ type Options<T extends CollectionRecord> = {
 export function createSyncServer<T extends CollectionRecord>(options: Options<T>) {
     const { collections } = options;
 
+
+
+    
     return {
         init: () => {
             Object.values(collections).forEach(collection => {

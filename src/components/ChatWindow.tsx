@@ -137,7 +137,69 @@ export function ChatWindow({ conversationId }: ChatWindowProps) {
           </div>
         ) : (
           messages.page.map((msg) => {
+            const lang = currentUser?.profile.preferredLanguage;
 
+            const isCurrentUser = msg.senderId === currentUser.user?._id;
+            const translation = msg.translations?.[lang ?? ""];
+            const original = msg.content;
+            const isExpanded = expandedMessages.has(msg._id);
+            const shouldTruncate = original.length > 60;
+            return (
+              <div
+                key={msg._id}
+                className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`}
+              >
+                <div
+                  className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
+                    isCurrentUser
+                      ? "bg-green-500 text-white"
+                      : "bg-white text-gray-900 border border-gray-200"
+                  }`}
+                >
+                  {translation ? (
+                    <>
+                      <p className="text-sm">
+                        {isExpanded ? original : translation}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        {isExpanded
+                          ? translation
+                          : shouldTruncate && !isExpanded
+                            ? truncateText(original)
+                            : original}
+
+                        {shouldTruncate && (
+                          <button
+                            onClick={() => toggleMessageExpansion(msg._id)}
+                            className={`text-xs mt-1 ml-1 underline hover:no-underline transition-all inline ${
+                              isCurrentUser ? "text-green-100" : "text-blue-500"
+                            }`}
+                          >
+                            {isExpanded ? "hide" : "see original"}
+                          </button>
+                        )}
+                      </p>
+                    </>
+                  ) : (
+                    <p
+                      className={`text-xs ${!isCurrentUser ? "text-gray-400" : ""}`}
+                    >
+                      {original}
+                    </p>
+                  )}
+                  <p
+                    className={`text-xs mt-1 ${
+                      isCurrentUser ? "text-green-100" : "text-gray-500"
+                    }`}
+                  >
+                    {new Date(msg._creationTime).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+              </div>
+            );
           })
         )}
         <div ref={messagesEndRef} />
@@ -181,75 +243,6 @@ export function ChatWindow({ conversationId }: ChatWindowProps) {
             <ArrowUpIcon />
           </button>
         </form>
-      </div>
-    </div>
-  );
-}
-
-function Message(props: { message:  }) {
-
-  const currentUser = useQuery(api.users.getCurrentUser);
-
-  const lang = currentUser?.profile.preferredLanguage;
-
-  const isCurrentUser = msg.senderId === currentUser.user?._id;
-  const translation = msg.translations?.[lang ?? ""];
-  const original = msg.content;
-  const isExpanded = expandedMessages.has(msg._id);
-  const shouldTruncate = original.length > 60;
-  return (
-    <div
-      key={msg._id}
-      className={`flex ${isCurrentUser ? "justify-end" : "justify-start"}`}
-    >
-      <div
-        className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
-          isCurrentUser
-            ? "bg-green-500 text-white"
-            : "bg-white text-gray-900 border border-gray-200"
-        }`}
-      >
-        {translation ? (
-          <>
-            <p className="text-sm">
-              {isExpanded ? original : translation}
-            </p>
-            <p className="text-xs text-gray-400">
-              {isExpanded
-                ? translation
-                : shouldTruncate && !isExpanded
-                  ? truncateText(original)
-                  : original}
-
-              {shouldTruncate && (
-                <button
-                  onClick={() => toggleMessageExpansion(msg._id)}
-                  className={`text-xs mt-1 ml-1 underline hover:no-underline transition-all inline ${
-                    isCurrentUser ? "text-green-100" : "text-blue-500"
-                  }`}
-                >
-                  {isExpanded ? "hide" : "see original"}
-                </button>
-              )}
-            </p>
-          </>
-        ) : (
-          <p
-            className={`text-xs ${!isCurrentUser ? "text-gray-400" : ""}`}
-          >
-            {original}
-          </p>
-        )}
-        <p
-          className={`text-xs mt-1 ${
-            isCurrentUser ? "text-green-100" : "text-gray-500"
-          }`}
-        >
-          {new Date(msg._creationTime).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </p>
       </div>
     </div>
   );
