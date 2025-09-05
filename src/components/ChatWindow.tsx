@@ -3,11 +3,12 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 import { useSuspenseQuery } from "@/lib/useSuspenseQuery";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useParams, useNavigate } from "react-router-dom";
 import {
   ArrowUpIcon,
   MicrophoneIcon,
   PaperclipIcon,
+  ArrowLeftIcon,
 } from "@phosphor-icons/react";
 
 interface ChatWindowProps {
@@ -34,6 +35,7 @@ export function ChatWindow({ conversationId }: ChatWindowProps) {
   const [expandedMessages, setExpandedMessages] = useState<Set<string>>(
     new Set()
   );
+  const navigate = useNavigate();
 
   const messages = useQuery(api.messages.getMessages, {
     conversationId,
@@ -110,6 +112,13 @@ export function ChatWindow({ conversationId }: ChatWindowProps) {
       {/* Chat Header */}
       <div className="bg-gray-50 p-4 border-b border-gray-200">
         <div className="flex items-center space-x-3">
+          <button
+            onClick={() => navigate("/")}
+            className="text-gray-600 hover:text-gray-800 transition-colors p-1"
+            title="Back to homepage"
+          >
+            <ArrowLeftIcon size={20} />
+          </button>
           <div className="relative">
             <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white font-semibold">
               {conversationInfo.name[0].toUpperCase()}
