@@ -60,9 +60,9 @@ export function NewChatModal({
         <ModalBody>
           <div className="space-y-4">
             <Input
-              type="email"
-              label="Search by email"
-              placeholder="Enter email address..."
+              type="text"
+              label="Search by phone"
+              placeholder="Enter phone number..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               autoFocus
@@ -79,7 +79,7 @@ export function NewChatModal({
                 ) : searchUsers.length === 0 ? (
                   <div className="text-center py-4">
                     <Chip variant="flat" color="default">
-                      No users found with that email
+                      No users found with that phone number
                     </Chip>
                   </div>
                 ) : (
