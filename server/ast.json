@@ -1,0 +1,121 @@
+{
+  "__type": "selection",
+  "selection": {
+    "valid": {
+      "name": "and",
+      "args": [
+        {
+          "name": "eq",
+          "args": [
+            {
+              "name": "count",
+              "args": [
+                {
+                  "path": [
+                    {
+                      "id": "f0cfc816-4c15-4f3c-a490-3ac6770befb4",
+                      "type": "__collectionRef"
+                    }
+                  ],
+                  "type": "ref"
+                }
+              ],
+              "type": "agg"
+            },
+            {
+              "value": 1,
+              "type": "val"
+            }
+          ],
+          "type": "func"
+        },
+        {
+          "name": "eq",
+          "args": [
+            {
+              "name": "count",
+              "args": [
+                {
+                  "path": [
+                    {
+                      "id": "ffedfb95-0411-43ab-b2b7-69390c18dc7b",
+                      "type": "__collectionRef"
+                    }
+                  ],
+                  "type": "ref"
+                }
+              ],
+              "type": "agg"
+            },
+            {
+              "value": 1,
+              "type": "val"
+            }
+          ],
+          "type": "func"
+        },
+        {
+          "name": "eq",
+          "args": [
+            {
+              "name": "count",
+              "args": [
+                {
+                  "path": [
+                    {
+                      "id": "e6afca01-d005-4f7a-846f-5a8a92092817",
+                      "type": "__collectionRef"
+                    }
+                  ],
+                  "type": "ref"
+                }
+              ],
+              "type": "agg"
+            },
+            {
+              "value": 1,
+              "type": "val"
+            }
+          ],
+          "type": "func"
+        },
+        {
+          "name": "lte",
+          "args": [
+            {
+              "name": "count",
+              "args": [
+                {
+                  "path": [
+                    {
+                      "id": "b3641c3a-466a-4f0a-a742-a8ff941b96b5",
+                      "type": "__collectionRef"
+                    }
+                  ],
+                  "type": "ref"
+                }
+              ],
+              "type": "agg"
+            },
+            {
+              "value": 1,
+              "type": "val"
+            }
+          ],
+          "type": "func"
+        }
+      ],
+      "type": "func"
+    },
+    "name": {
+      "path": [
+        {
+          "id": "f0cfc816-4c15-4f3c-a490-3ac6770befb4",
+          "type": "__collectionRef"
+        },
+        "value"
+      ],
+      "type": "ref"
+    }
+  }
+}
